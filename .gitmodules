@@ -1,0 +1,6 @@
+[submodule "micropython"]
+	path = micropython
+	url = https://github.com/micropython/micropython
+[submodule "micropython-lib"]
+	path = micropython-lib
+	url = git@github.com:robosaurus-ev3dev2-upy/micropython-lib.git
