@@ -1,13 +1,15 @@
 OUT := build
 
-MICROPYTHON = micropython
+MICROPYTHON_DIR = micropython
 UPYLIB_SRCDIR = micropython-lib
 EVDEV_SRCDIR = python-evdev
 EV3DEV2_SRCDIR = ev3dev-lang-python
 
-MPYCROSS := ${MICROPYTHON}/mpy-cross/mpy-cross
+MPYCROSS := ${MICROPYTHON_DIR}/mpy-cross/mpy-cross
 MPYC_FLAGS := -v -v -mcache-lookup-bc
 
+CFLAGS = -I$(MICROPYTHON_DIR) -I$(MICROPYTHON_DIR)/py
+CFLAGS += -I$(MICROPYTHON_DIR)/ports/unix -I$(MICROPYTHON_DIR)/ports/unix/build -DMICROPY_PY_THREAD=0
 CFLAGS += -shared -fPIC
 
 upy_srcdirs = $(shell find ${UPYLIB_SRCDIR}/* -maxdepth 0 -type d)
