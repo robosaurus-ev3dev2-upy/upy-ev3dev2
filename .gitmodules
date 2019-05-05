@@ -4,3 +4,9 @@
 [submodule "micropython-lib"]
 	path = micropython-lib
 	url = git@github.com:robosaurus-ev3dev2-upy/micropython-lib.git
+[submodule "python-evdev"]
+	path = python-evdev
+	url = git@github.com:robosaurus-ev3dev2-upy/python-evdev.git
+[submodule "ev3dev-lang-python"]
+	path = ev3dev-lang-python
+	url = git@github.com:robosaurus-ev3dev2-upy/ev3dev-lang-python.git
