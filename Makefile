@@ -24,6 +24,8 @@ CSRCS += $(shell cd ${EV3DEV2_SRCDIR} && find ./ev3dev2 -type f \( -iname "*.c" 
 MPYS := $(PYS:./%.py=${OUT}/%.mpy)
 DLIBS := $(CSRCS:./%.c=${OUT}/%.so)
 
+all: ${MPYCROSS} ${MPYS} ${DLIBS}
+
 vpath %.py $(subst $() $(),:,$(upy_srcdirs))
 vpath %.c $(subst $() $(),:,$(upy_srcdirs))
 vpath %.py $(EVDEV_SRCDIR)
@@ -39,4 +41,14 @@ ${OUT}/%.so: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@
 
-all: ${MPYS} ${DLIBS}
+${MPYCROSS}:
+	@make -C ${MICROPYTHON_DIR}/ports/unix
+
+install: all
+	-rm -rf /usr/bin/micropython
+	-rm -rf /usr/bin/mpy-cross
+	-rm -rf /usr/lib/micropython
+	cp ${MPYCROSS} /usr/bin/mpy-cross
+	cp ${MICROPYTHON_DIR}/ports/unix/micropython /usr/bin/micropython
+	mkdir /usr/lib/micropython
+	cp -R build/* /usr/lib/micropython/
