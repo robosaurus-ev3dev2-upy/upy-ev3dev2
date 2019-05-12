@@ -6,15 +6,16 @@ The purpose of this "Orgnization" is to improve ev3dev2 running in Micropython.
 ev3dev2 provides Python environment on Lego EV3, which would something the kids in our FLL team (Robosaurus) would like to explore.
 
 However, python3 starts so so so so so so slow, which makes the environment not suitable for using during FLL competetion.
-Fortunately there is also Micropython. So far ev3dev2 running in Micropython supports most of the sensors and motors on EV3, with the exception of buttons, sound, and diplay.
+Fortunately there is also Micropython. So far ev3dev2 running in Micropython supports most of the sensors and motors on EV3, with the exception of LEDs, buttons, sound, and diplay.
 
 Buttons would be pretty useful during the robot game so we do need them.
-Sound is pretty interesting, especially the ability of calling espeak from the python program makes the kids a lot more interested in programming. So would like to have it.
+LEDs is pretty easy to fix so I just did it.
+Sound is interesting to the kids. Especially the ability of calling espeak from the python program makes the kids a lot more interested in programming. So would like to have it.
 Display is good, but looks like a little bit too complicated for now. Will postpone it.
 
 As a coach of the FLL team, I would like to have the kids to do things. However, this I guess is too hard for a bunch of 10-year-olds. So I am going to help. :)
 
-The changes are mostly in micropython-lib for low level supports. There is only one C module used, because I am too lazy to re-structure the structs and IOCTL numbers from C file to Python. So this requires a special build Micropython itself. I cherry-picked the changes from https://github.com/stinos/micropython/tree/windows-pyd so Micropython can load .so file as dynamical module. If I have the time and patience I may try to re-impelement the C file in Python and get rid of the requirments of special built Micropython.
+The changes are mostly in micropython-lib for low level supports. There is only one C module used, because I am too lazy to re-structure the structs and IOCTL numbers from C file to Python. So this requires a special built Micropython itself. I cherry-picked the changes from https://github.com/stinos/micropython/tree/windows-pyd so Micropython can load .so file as dynamical module. If I have the time and patience I may try to re-impelement the C file in Python and get rid of the requirments of special built Micropython.
 
 My main goal is to make things run on LEGO EV3. And I am not an experience Python programmer at all, so I cannot guarentee the code I implemented in Micropython fully compliant with the function descriptions in CPython. I have only tested against the ev3dev2 stuff. So I am not persuing merging my changes into the mainlines in foreseeable future.
 
