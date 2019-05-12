@@ -5,7 +5,7 @@ UPYLIB_SRCDIR = micropython-lib
 EVDEV_SRCDIR = python-evdev
 EV3DEV2_SRCDIR = ev3dev-lang-python
 
-MPYCROSS := ${MICROPYTHON_DIR}/mpy-cross/mpy-cross
+MPYCROSS := /usr/bin/mpy-cross
 MPYC_FLAGS := -v -v -mcache-lookup-bc
 
 CFLAGS = -I$(MICROPYTHON_DIR) -I$(MICROPYTHON_DIR)/py
@@ -24,7 +24,10 @@ CSRCS += $(shell cd ${EV3DEV2_SRCDIR} && find ./ev3dev2 -type f \( -iname "*.c" 
 MPYS := $(PYS:./%.py=${OUT}/%.mpy)
 DLIBS := $(CSRCS:./%.c=${OUT}/%.so)
 
-all: ${MPYCROSS} ${MPYS} ${DLIBS}
+libs: ${MPYS} ${DLIBS}
+
+upy:
+	@make -C ${MICROPYTHON_DIR}/ports/unix
 
 vpath %.py $(subst $() $(),:,$(upy_srcdirs))
 vpath %.c $(subst $() $(),:,$(upy_srcdirs))
@@ -41,14 +44,13 @@ ${OUT}/%.so: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@
 
-${MPYCROSS}:
-	@make -C ${MICROPYTHON_DIR}/ports/unix
-
-install: all
+install_upy: upy
 	-rm -rf /usr/bin/micropython
 	-rm -rf /usr/bin/mpy-cross
-	-rm -rf /usr/lib/micropython
-	cp ${MPYCROSS} /usr/bin/mpy-cross
+	cp ${MICROPYTHON_DIR}/mpy-cross/mpy-cross /usr/bin/mpy-cross
 	cp ${MICROPYTHON_DIR}/ports/unix/micropython /usr/bin/micropython
+
+install_libs: libs
+	-rm -rf /usr/lib/micropython
 	mkdir /usr/lib/micropython
 	cp -R build/* /usr/lib/micropython/
