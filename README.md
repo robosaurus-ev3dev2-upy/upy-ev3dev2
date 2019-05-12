@@ -23,6 +23,14 @@ And you can see, this is just an experiment project. Everything is subject to ch
 
 And I am not familiar with debian packaging stuff, so I am not going to try that. I will just describe the steps of building my stuff from source.
 
+WARNING:
+This will replace the existing Micropython and the libs from EV3. If you would like to go back without re-flashing the SD card, you should make a backup of:
+```
+    /usr/bin/micropython
+    /usr/bin/mpy-cross
+    /usr/lib/micropython
+```
+
 You can build this directly on your EV3. In the terminal:
 ```
     1. git clone --recursive https://github.com/robosaurus-ev3dev2-upy/upy-ev3dev2.git
